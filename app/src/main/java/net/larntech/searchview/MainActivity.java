@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<ItemsModel> itemsModelList = new ArrayList<>();
 
-    ListView listView;
+    GridView gridView;
 
     CustomAdapter customAdapter;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = findViewById(R.id.listview);
+        gridView = findViewById(R.id.gridView);
 
 
         for(int i = 0;i < names.length;i++){
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
          customAdapter = new CustomAdapter(itemsModelList,this);
 
-        listView.setAdapter(customAdapter);
+        gridView.setAdapter(customAdapter);
 
 
     }
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
             names.setText(itemsModelListFiltered.get(position).getName());
             emails.setText(itemsModelListFiltered.get(position).getEmail());
-            imageView.setImageResource(images[position]);
+            imageView.setImageResource(itemsModelListFiltered.get(position).getImages());
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -184,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
                         for(ItemsModel itemsModel:itemsModelsl){
                             if(itemsModel.getName().contains(searchStr) || itemsModel.getEmail().contains(searchStr)){
                                 resultsModel.add(itemsModel);
-                                filterResults.count = resultsModel.size();
-                                filterResults.values = resultsModel;
+
                             }
                         }
-
+                        filterResults.count = resultsModel.size();
+                        filterResults.values = resultsModel;
 
                     }
 
